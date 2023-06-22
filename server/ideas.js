@@ -6,7 +6,8 @@ const {
         getFromDatabaseById,
         updateInstanceInDatabase,
         deleteFromDatabasebyId
-} = require('./db.js')
+} = require('./db.js');
+const checkMillionDollarIdea = require('./checkMillionDollarIdea.js');
 
 //Check for valid id
 ideasRouter.param('id', (req, res, next, id) => {
@@ -26,7 +27,7 @@ ideasRouter.get('/', (req, res, next) => {
 });
 
 //POST a new idea
-ideasRouter.post('/', (req, res, next) => {
+ideasRouter.post('/', checkMillionDollarIdea, (req, res, next) => {
     const newIdea = addToDatabase('ideas', req.body);
     res.status(201).send(newIdea);
 });
@@ -45,7 +46,7 @@ ideasRouter.put('/:id', (req, res, next) => {
 
 //DELETE an idea by id
 ideasRouter.delete('/:id', (req, res, next) => {
-    const deleted = deleteFromDatabasebyId('ideas', req.id);
+    const deleted = deleteFromDatabasebyId('ideas', req.params.id);
         if (deleted) {
             res.status(204);
         } else {

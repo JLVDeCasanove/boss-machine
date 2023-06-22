@@ -1,7 +1,8 @@
 const express = require('express');
 const minionsRouter = express.Router();
 
-const { getAllFromDatabase,
+const {
+        getAllFromDatabase,
         addToDatabase,
         getFromDatabaseById,
         updateInstanceInDatabase,
@@ -45,7 +46,7 @@ minionsRouter.put('/:id', (req, res, next) => {
 
 //DELETE a minion by Id
 minionsRouter.delete('/:id', (req, res, next) => {
-    const deleted = deleteFromDatabasebyId('minions', req.id);
+    const deleted = deleteFromDatabasebyId('minions', req.params.id);
         if (deleted) {
             res.status(204);
         } else {
